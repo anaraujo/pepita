@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes, useNavigate } from "react-router-dom";
+import "./App.css";
+import CoffeeList from "./CoffeeList";
+import CreateCoffee from "./CreateCoffee";
 
-function App() {
+const App = () => {
+  let navigate = useNavigate();
+
+  const coffees = [
+    {
+      id: "1",
+      name: "Maragogipe",
+      grind: "Em Grãos",
+      quantity: 250,
+      roastedDate: new Date("08/07/2024"),
+      type: "Arábica",
+      variety: "Maragogipe",
+      process: "Natural",
+    },
+    {
+      id: "2",
+      name: "Gesha",
+      grind: "Em Grãos",
+      quantity: 250,
+      roastedDate: new Date("08/12/2024"),
+      type: "Arábica",
+      variety: "Gesha",
+      process: "Natural Fermentado",
+    },
+  ];
+
+  const createCoffee = () => {
+    navigate("/");
+    console.log("createCoffee");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<CoffeeList coffees={coffees} />} />
+      <Route
+        path="/create"
+        element={
+          <CreateCoffee
+            onAddCoffeereateCoffee={(coffee) => {
+              createCoffee(coffee);
+            }}
+          />
+        }
+      />
+    </Routes>
   );
-}
+};
 
 export default App;
